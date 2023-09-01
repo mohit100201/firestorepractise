@@ -1,8 +1,12 @@
 package com.example.firestorepractise;
 
+import com.google.firebase.firestore.Exclude;
+
 public class Note {
     private String Title;
     private String Description;
+
+    private String documentID;
 
     public Note() {
     }
@@ -26,5 +30,14 @@ public class Note {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    @Exclude
+    public String getDocumentID() {
+        return documentID;
+    }
+
+    public void setDocumentID(String documentID) {
+        this.documentID = documentID;
     }
 }

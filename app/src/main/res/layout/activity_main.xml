@@ -29,8 +29,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/saveBtn"
+        android:text="Add"
+        android:id="@+id/AddBtn"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:backgroundTint="#267BA1"
@@ -49,44 +49,12 @@
         
         
         />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#267BA1"
-        android:text="Update description"
-        android:textSize="18sp"
-        android:id="@+id/updateBtn"
 
 
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#267BA1"
-        android:text="Delete description"
-        android:textSize="18sp"
-        android:id="@+id/deleteDescriptionBtn"
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#267BA1"
-        android:text="Delete Note"
-        android:textSize="18sp"
-        android:id="@+id/DeleteNoteBtn"
-
-
-        />
-
-    
     <TextView
         android:id="@+id/text_view_data"
         android:layout_width="match_parent"
@@ -97,6 +65,14 @@
 
 
         />
+
+
+</androidx.core.widget.NestedScrollView>
+
+
+
+    
+
 
 
 
