@@ -5,15 +5,17 @@ import com.google.firebase.firestore.Exclude;
 public class Note {
     private String Title;
     private String Description;
+    private int priority;
 
     private String documentID;
 
     public Note() {
     }
 
-    public Note(String title, String description) {
+    public Note(String title, String description,int priority) {
         this.Title = title;
        this.Description = description;
+       this.priority=priority;
     }
 
     public String getTitle() {
@@ -39,5 +41,13 @@ public class Note {
 
     public void setDocumentID(String documentID) {
         this.documentID = documentID;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

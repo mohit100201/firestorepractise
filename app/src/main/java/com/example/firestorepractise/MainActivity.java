@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    EditText title,description;
+    EditText title,description,edit_text_priority;
     Button saveBtn,loadBtn,updateBtn,deleteNote,deleteDescription,AddBtn;
     TextView text_view_data;
 
@@ -52,12 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
         title=findViewById(R.id.edit_text_title);
         description=findViewById(R.id.edit_text_description);
-//        saveBtn=findViewById(R.id.saveBtn);
         loadBtn=findViewById(R.id.loadBtn);
         text_view_data=findViewById(R.id.text_view_data);
-//        updateBtn=findViewById(R.id.updateBtn);
-//        deleteDescription=findViewById(R.id.deleteDescriptionBtn);
-//        deleteNote=findViewById(R.id.DeleteNoteBtn);
+        edit_text_priority=findViewById(R.id.edit_text_priority);
+
+
         AddBtn=findViewById(R.id.AddBtn);
 
 
@@ -65,7 +65,15 @@ public class MainActivity extends AppCompatActivity {
         AddBtn.setOnClickListener(v -> {
             String Title=title.getText().toString();
             String Description=description.getText().toString();
-            Note note=new Note(Title,Description);
+
+            if(edit_text_priority.length()==0){
+                edit_text_priority.setText("0");
+            }
+
+            int priority=Integer.parseInt(edit_text_priority.getText().toString());
+
+
+            Note note=new Note(Title,Description,priority);
 
             notebookRef.add(note);
 
@@ -75,7 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
         loadBtn.setOnClickListener(v -> {
 
-            notebookRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            notebookRef.whereGreaterThanOrEqualTo("priority",2)
+                    .whereEqualTo("title","aa")
+                    .orderBy("priority", Query.Direction.DESCENDING)
+
+                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     String data="";
@@ -85,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                         String title=note.getTitle();
                         String description= note.getDescription();
                         note.setDocumentID(documentSnapshot.getId());
-                        data+="Title: "+title+"\n"+"Description: "+description+"\nID: "+id+"\n\n";
+                        int priority=note.getPriority();
+                        data+="Title: "+title+"\n"+"Description: "+description+"\nID: "+id+"\nPriority: "+priority+"\n\n";
 
                     }
 
@@ -93,7 +106,13 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
-            });
+            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG,e.toString());
+
+                        }
+                    });
 
 
 
@@ -124,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
                     String title=note.getTitle();
                     String description= note.getDescription();
                     String id=note.getDocumentID();
-                    data+="Title: "+title+"\n"+"Description: "+description+"\nID: "+id+"\n\n";
+                    int priority= note.getPriority();
+                    data+="Title: "+title+"\n"+"Description: "+description+"\nID: "+id+"\nPriority: "+priority+"\n\n";
 
                 }
 

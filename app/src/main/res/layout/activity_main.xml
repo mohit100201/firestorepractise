@@ -26,6 +26,15 @@
 
         />
 
+    <EditText
+        android:id="@+id/edit_text_priority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Priority"
+        android:inputType="number"
+
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
